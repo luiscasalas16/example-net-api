@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
 
 namespace net_api_utils.Results
 {
@@ -11,18 +11,17 @@ namespace net_api_utils.Results
             _errors = new List<ResultMessage> { new ResultMessage(error) };
         }
 
+        public ResultUnexpected(params string [] error)
+        {
+            _errors = new List<ResultMessage> (error.Select(t => new ResultMessage(t)));
+        }
+
         public override ResultType Type => ResultType.Unexpected;
 
         public List<ResultMessage> Errors => _errors;
 
-        public override Task ExecuteResultAsync(ActionContext context)
-        {
-            var objectResult = new ObjectResult(new { errors = _errors })
-            {
-                StatusCode = 500
-            };
+        public override object Data => new { errores = _errors };
 
-            return objectResult.ExecuteResultAsync(context);
-        }
+        public override HttpStatusCode Code => HttpStatusCode.InternalServerError;
     }
 }

@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Net;
 
 namespace net_api_utils.Results
 {
@@ -26,14 +26,8 @@ namespace net_api_utils.Results
 
         public List<ResultMessage> Errors => _errors;
 
-        public override Task ExecuteResultAsync(ActionContext context)
-        {
-            var objectResult = new ObjectResult(new { errors = _errors })
-            {
-                StatusCode = 400
-            };
+        public override object Data => new { errores = _errors };
 
-            return objectResult.ExecuteResultAsync(context);
-        }
+        public override HttpStatusCode Code => HttpStatusCode.BadRequest;
     }
 }

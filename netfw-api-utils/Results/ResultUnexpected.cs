@@ -4,26 +4,26 @@ using System.Net;
 
 namespace netfw_api_utils.Results
 {
-    public class ResultadoInesperado : Result
+    public class ResultUnexpected : Result
     {
-        private readonly List<ResultadoMensaje> _errores;
+        private readonly List<ResultMessage> _errors;
 
-        public ResultadoInesperado(string error)
+        public ResultUnexpected(string error)
         {
-            _errores = new List<ResultadoMensaje> { new ResultadoMensaje(error) };
+            _errors = new List<ResultMessage> { new ResultMessage(error) };
         }
 
-        public ResultadoInesperado(params string [] error)
+        public ResultUnexpected(params string [] error)
         {
-            _errores = new List<ResultadoMensaje> (error.Select(t => new ResultadoMensaje(t)));
+            _errors = new List<ResultMessage> (error.Select(t => new ResultMessage(t)));
         }
 
-        public override ResultType ResultadoTipo => ResultType.Unexpected;
+        public override ResultType Type => ResultType.Unexpected;
 
-        public List<ResultadoMensaje> Errores => _errores;
+        public List<ResultMessage> Errors => _errors;
 
-        public override object Contenido => new { errores = _errores };
+        public override object Data => new { errores = _errors };
 
-        public override HttpStatusCode Estado => HttpStatusCode.InternalServerError;
+        public override HttpStatusCode Code => HttpStatusCode.InternalServerError;
     }
 }

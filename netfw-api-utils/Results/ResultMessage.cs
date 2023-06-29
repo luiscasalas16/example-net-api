@@ -1,12 +1,12 @@
 ﻿namespace netfw_api_utils.Results
 {
-    public class ResultadoMensaje
+    public class ResultMessage
     {
-        public string Mensaje { get; set; }
+        public string Message { get; set; }
 
-        public ResultadoMensaje(string mensaje)
+        public ResultMessage(string message)
         {
-            Mensaje = mensaje;
+            Message = message;
         }
     }
 }

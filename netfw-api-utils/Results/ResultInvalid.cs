@@ -5,31 +5,31 @@ using System.Web.Http.ModelBinding;
 
 namespace netfw_api_utils.Results
 {
-    public class ResultadoInvalido : Result
+    public class ResultInvalid : Result
     {
-        private readonly List<ResultadoMensaje> _errores;
+        private readonly List<ResultMessage> _errors;
 
-        public ResultadoInvalido(string error)
+        public ResultInvalid(string error)
         {
-            _errores = new List<ResultadoMensaje> { new ResultadoMensaje(error) };
+            _errors = new List<ResultMessage> { new ResultMessage(error) };
         }
 
-        public ResultadoInvalido(List<string> errores)
+        public ResultInvalid(List<string> errors)
         {
-            _errores = new List<ResultadoMensaje> (errores.Select(t => new ResultadoMensaje(t)).ToList());
+            _errors = new List<ResultMessage> (errors.Select(t => new ResultMessage(t)).ToList());
         }
 
-        public ResultadoInvalido(ModelStateDictionary modelState)
+        public ResultInvalid(ModelStateDictionary modelState)
         {
-            _errores = modelState.Values.SelectMany(m => m.Errors).Select(e => new ResultadoMensaje(e.ErrorMessage)).ToList();
+            _errors = modelState.Values.SelectMany(m => m.Errors).Select(e => new ResultMessage(e.ErrorMessage)).ToList();
         }
 
-        public override ResultType ResultadoTipo => ResultType.Invalid;
+        public override ResultType Type => ResultType.Invalid;
 
-        public List<ResultadoMensaje> Errores => _errores;
+        public List<ResultMessage> Errors => _errors;
 
-        public override object Contenido => new { errores = _errores };
+        public override object Data => new { errores = _errors };
 
-        public override HttpStatusCode Estado => HttpStatusCode.BadRequest;
+        public override HttpStatusCode Code => HttpStatusCode.BadRequest;
     }
 }

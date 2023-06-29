@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
 
 namespace net_api_utils.Results
 {
@@ -13,16 +13,8 @@ namespace net_api_utils.Results
 
         public override ResultType Type => ResultType.Valid;
 
-        public object Data => _data;
+        public override object Data => _data;
 
-        public override Task ExecuteResultAsync(ActionContext context)
-        {
-            var objectResult = new ObjectResult(_data)
-            {
-                StatusCode = 200
-            };
-
-            return objectResult.ExecuteResultAsync(context);
-        }
+        public override HttpStatusCode Code => HttpStatusCode.OK;
     }
 }

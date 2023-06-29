@@ -25,5 +25,22 @@ namespace net_api_utils.Extensions
         {
             return new ResultUnexpected(error);
         }
+
+        public static bool Validate<T>(this ControllerBase controller, T modelo, out IActionResult resultadoInvalido)
+        {
+            if (modelo == null)
+            {
+                modelo = (T) Activator.CreateInstance(typeof(T), new object[] { });
+
+                controller.TryValidateModel(modelo);
+            }
+
+            if (!controller.ModelState.IsValid)
+                resultadoInvalido = controller.ResultInvalid(controller.ModelState);
+            else
+                resultadoInvalido = null;
+
+            return resultadoInvalido != null;
+        }
     }
 }

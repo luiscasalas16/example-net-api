@@ -11,12 +11,12 @@ namespace netfw_api_utils.Errores
         {
             if (context.Exception is ErrorValidacion errorValidacion)
             {
-                context.Result = new ResultadoInvalido(errorValidacion.Message);
+                context.Result = new ResultInvalid(errorValidacion.Message);
                 return;
             }
             else if (context.Exception is ErrorConfiguracion errorConfiguracion)
             {
-                context.Result = new ResultadoInvalido(errorConfiguracion.Message);
+                context.Result = new ResultInvalid(errorConfiguracion.Message);
                 return;
             }
             else
@@ -32,7 +32,7 @@ namespace netfw_api_utils.Errores
                 //    //ignore
                 //}
 
-                context.Result = new ResultadoInesperado("Ha ocurrido un error inesperado.", context.Exception.ToString());
+                context.Result = new ResultUnexpected("Ha ocurrido un error inesperado.", context.Exception.ToString());
             }
         }
     }

@@ -2,19 +2,19 @@
 
 namespace netfw_api_utils.Results
 {
-    public class ResultadoValido : Result
+    public class ResultValid : Result
     {
-        private readonly object _datos;
+        private readonly object _data;
 
-        public ResultadoValido(object datos)
+        public ResultValid(object data)
         {
-            _datos = datos;
+            _data = data;
         }
 
-        public override ResultType ResultadoTipo => ResultType.Valid;
+        public override ResultType Type => ResultType.Valid;
 
-        public override object Contenido => _datos;
+        public override object Data => _data;
 
-        public override HttpStatusCode Estado => HttpStatusCode.OK;
+        public override HttpStatusCode Code => HttpStatusCode.OK;
     }
 }
