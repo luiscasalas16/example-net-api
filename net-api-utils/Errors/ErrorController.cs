@@ -13,9 +13,20 @@ namespace net_api_utils.Errores
         {
             var context = HttpContext.Features.Get<IExceptionHandlerFeature>()!;
 
-            logger.LogError(context.Error, "Ha ocurrido un error inesperado.");
-            
-            return new ResultUnexpected("Ha ocurrido un error inesperado.");
+            logger.LogError(context.Error, "Unexpected error.");
+
+            if (context.Error is ErrorValidacion errorValidacion)
+            {
+                return new ResultInvalid(errorValidacion.Message);
+            }
+            else if (context.Error is ErrorConfiguracion errorConfiguracion)
+            {
+                return new ResultInvalid(errorConfiguracion.Message);
+            }
+            else
+            {
+                return new ResultUnexpected("Unexpected error.", context.Error.ToString());
+            }
         }
     }
 }
