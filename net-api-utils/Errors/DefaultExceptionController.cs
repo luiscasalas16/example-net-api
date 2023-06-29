@@ -6,20 +6,20 @@ using net_api_utils.Results;
 namespace net_api_utils.Errores
 {
     [ApiController]
-    public class ErrorController : ControllerBase
+    public class DefaultExceptionController : ControllerBase
     {
         [Route("/error")]
-        public IActionResult ErrorLocalDevelopment([FromServices] ILogger<ErrorController> logger)
+        public IActionResult ErrorLocalDevelopment([FromServices] ILogger<DefaultExceptionController> logger)
         {
             var context = HttpContext.Features.Get<IExceptionHandlerFeature>()!;
 
             logger.LogError(context.Error, "Unexpected error.");
 
-            if (context.Error is ErrorValidacion errorValidacion)
+            if (context.Error is ValidationException errorValidacion)
             {
                 return new ResultInvalid(errorValidacion.Message);
             }
-            else if (context.Error is ErrorConfiguracion errorConfiguracion)
+            else if (context.Error is ConfigurationException errorConfiguracion)
             {
                 return new ResultInvalid(errorConfiguracion.Message);
             }

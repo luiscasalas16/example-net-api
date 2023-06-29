@@ -1,16 +1,12 @@
 ﻿using netfw_api_utils.Results;
 using System;
 using System.Linq;
-using System.Net.Http.Headers;
-using System.Net.Http;
-using System.Net;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
-using System.Web.Http.Results;
 
 namespace netfw_api_utils.Extensiones
 {
-    public static class ControllerBaseResultados
+    public static class ControllerExtensions
     {
         public static IHttpActionResult ResultValid(this ApiController controller, object datos)
         {

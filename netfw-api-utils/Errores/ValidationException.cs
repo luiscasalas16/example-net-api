@@ -2,14 +2,14 @@
 
 namespace netfw_api_utils.Errores
 {
-    public class ErrorValidacion : Exception
+    public class ValidationException : Exception
     {
-        public ErrorValidacion(string message) 
+        public ValidationException(string message) 
             : base(message)
         {
         }
 
-        public ErrorValidacion(string message, Exception innerException) 
+        public ValidationException(string message, Exception innerException) 
             : base(message, innerException)
         {
         }
