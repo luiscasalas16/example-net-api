@@ -9,6 +9,7 @@ namespace net_api_client
         static async Task Main(string[] args)
         {
             Console.WriteLine("net");
+            Console.WriteLine();
 
             //Console.Write("press enter key to start");
             //Console.ReadLine();
@@ -59,6 +60,7 @@ namespace net_api_client
             }
 
             Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine();
         }
     }
 }

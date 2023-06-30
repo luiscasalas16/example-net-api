@@ -1,33 +1,45 @@
-﻿using System.Collections.Generic;
+﻿using Bogus;
+using netfw_api.Models;
+using System.Collections.Generic;
 using System.Web.Http;
 
 namespace netfw_api.Controllers
 {
     public class Test2Controller : ApiController
     {
-        // GET api/values
-        public IEnumerable<string> Get()
+        public IEnumerable<TestEntityDto> Get()
         {
-            return new string[] { "value1", "value2" };
+            var result = new Faker<TestEntityDto>()
+                .RuleFor(o => o.Id, f => f.Random.Int(1, 100))
+                .RuleFor(o => o.FistName, f => f.Name.FirstName())
+                .RuleFor(o => o.LastName, f => f.Name.LastName())
+                .RuleFor(o => o.Email, f => f.Internet.Email());
+            
+            return result.Generate(2);
         }
 
-        // GET api/values/5
-        public string Get(int id)
+        public TestEntityDto Get(int id)
         {
-            return "value";
+            var result = new Faker<TestEntityDto>()
+                .RuleFor(o => o.Id, id)
+                .RuleFor(o => o.FistName, f => f.Name.FirstName())
+                .RuleFor(o => o.LastName, f => f.Name.LastName())
+                .RuleFor(o => o.Email, f => f.Internet.Email());
+
+            return result.Generate(1)[0];
         }
 
-        // POST api/values
-        public void Post([FromBody] string value)
+        public TestEntityDto Post([FromBody] TestEntityDto value)
         {
+            value.Id = new Faker().Random.Int(1, 100);
+
+            return value;
         }
 
-        // PUT api/values/5
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/values/5
         public void Delete(int id)
         {
         }
