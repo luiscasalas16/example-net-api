@@ -18,25 +18,25 @@ namespace netfw_api.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult TestA(TestADto parameters)
+        public IHttpActionResult TestA(TestDto parameters)
         {
-            if (this.Validate(parameters, out IHttpActionResult resultado)) return resultado;
-
-            return this.ResultValid(new TestAResultDto()
-            {
-                OutputMessage = $"{parameters.InputMessage} - A - {DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fffff")}"
-            });
+            return Test(parameters, "A");
         }
 
         [HttpPost]
         [ActionName("B")]
-        public IHttpActionResult TestB(TestBDto parameters)
+        public IHttpActionResult TestB(TestDto parameters)
+        {
+            return Test(parameters, "B");
+        }
+
+        private IHttpActionResult Test(TestDto parameters, string id)
         {
             if (this.Validate(parameters, out IHttpActionResult resultado)) return resultado;
 
-            return this.ResultValid(new TestBResultDto()
+            return this.ResultValid(new TestResultDto()
             {
-                OutputMessage = $"{parameters.InputMessage} - B - {DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fffff")}"
+                OutputMessage = $"{parameters.InputMessage} - {id} - {DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fffff")}"
             });
         }
     }

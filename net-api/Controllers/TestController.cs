@@ -18,30 +18,30 @@ namespace net_api.Controllers
         }
 
         [HttpGet]
-        public bool Get()
+        public IActionResult Get()
         {
-            return true;
+            return this.ResultValid(true);
         }
 
         [HttpPost("TestA")]
-        public IActionResult TestA([FromForm] TestADto parameters)
+        public IActionResult TestA([FromForm] TestDto parameters)
         {
-            if (this.Validate(parameters, out IActionResult resultado)) return resultado;
-
-            return this.ResultValid(new TestAResultDto()
-            {
-                OutputMessage = $"{parameters.InputMessage} - A - {DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fffff")}"
-            });
+            return Test(parameters, "A");
         }
 
         [HttpPost("B")]
-        public IActionResult TestB([FromForm] TestBDto parameters)
+        public IActionResult TestB([FromForm] TestDto parameters)
+        {
+            return Test(parameters, "B");
+        }
+
+        private IActionResult Test(TestDto parameters, string id)
         {
             if (this.Validate(parameters, out IActionResult resultado)) return resultado;
 
-            return this.ResultValid(new TestBResultDto()
+            return this.ResultValid(new TestResultDto()
             {
-                OutputMessage = $"{parameters.InputMessage} - B - {DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fffff")}"
+                OutputMessage = $"{parameters.InputMessage} - {id} - {DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fffff")}"
             });
         }
     }
