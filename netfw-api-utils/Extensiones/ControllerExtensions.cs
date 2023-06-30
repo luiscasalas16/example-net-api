@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
 
-namespace netfw_api_utils.Extensiones
+namespace netfw_api_utils.Extensions
 {
     public static class ControllerExtensions
     {

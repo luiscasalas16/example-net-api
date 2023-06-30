@@ -26,6 +26,8 @@ namespace net_api.Controllers
         [HttpPost("A")]
         public IActionResult TestA([FromForm] TestADto parameters)
         {
+            if (this.Validate(parameters, out IActionResult resultado)) return resultado;
+
             return this.ResultValid(new TestAResultDto()
             {
                 OutputMessage = $"{parameters.InputMessage} - A - {DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fffff")}"
@@ -35,6 +37,8 @@ namespace net_api.Controllers
         [HttpPost("B")]
         public IActionResult TestB([FromForm] TestBDto parameters)
         {
+            if (this.Validate(parameters, out IActionResult resultado)) return resultado;
+
             return this.ResultValid(new TestBResultDto()
             {
                 OutputMessage = $"{parameters.InputMessage} - B - {DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fffff")}"

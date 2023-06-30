@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netfw-api-utils", "netfw-ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "net-api-client", "net-api-client\net-api-client.csproj", "{333E5F8B-4E30-4C0F-8CC5-B0644296C1CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netfw-api-client", "netfw-api-client\netfw-api-client.csproj", "{C7B0D4A6-C564-4B29-9468-AD5355AA0D26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{333E5F8B-4E30-4C0F-8CC5-B0644296C1CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{333E5F8B-4E30-4C0F-8CC5-B0644296C1CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{333E5F8B-4E30-4C0F-8CC5-B0644296C1CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7B0D4A6-C564-4B29-9468-AD5355AA0D26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7B0D4A6-C564-4B29-9468-AD5355AA0D26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7B0D4A6-C564-4B29-9468-AD5355AA0D26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7B0D4A6-C564-4B29-9468-AD5355AA0D26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{2785B37C-B4A1-436D-92B9-CA2EC55FBCD1} = {9605363E-7F57-4F8C-A6AF-B6943C403241}
 		{187CEBCD-6E8B-4181-A9F4-252DB2793F9A} = {F455402B-AB51-4589-8BDD-4C54E979827C}
 		{333E5F8B-4E30-4C0F-8CC5-B0644296C1CF} = {9605363E-7F57-4F8C-A6AF-B6943C403241}
+		{C7B0D4A6-C564-4B29-9468-AD5355AA0D26} = {F455402B-AB51-4589-8BDD-4C54E979827C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9CE83795-3E10-4C14-9F53-A10014B6374B}
