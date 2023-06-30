@@ -23,13 +23,13 @@ namespace net_api.Controllers
             return this.ResultValid(true);
         }
 
-        [HttpPost("TestA")]
+        [HttpPost("[action]")]
         public IActionResult TestA([FromForm] TestDto parameters)
         {
             return Test(parameters, "A");
         }
 
-        [HttpPost("TestB")]
+        [HttpPost("[action]")]
         public IActionResult TestB([FromForm] TestDto parameters)
         {
             return Test(parameters, "B");

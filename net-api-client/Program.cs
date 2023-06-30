@@ -9,15 +9,18 @@ namespace net_api_client
         static async Task Main(string[] args)
         {
             Console.WriteLine("net");
-            Console.Write("press enter key to start");
-            Console.ReadLine();
+
+            //Console.Write("press enter key to start");
+            //Console.ReadLine();
+
+            Thread.Sleep(2000);
 
             try
             {
-                Console.WriteLine(await Test("A", "TestA"));
-                Console.WriteLine(await Test("B", "TestB"));
-                Console.WriteLine(await Test("C", "C"));
-                Console.WriteLine(await Test("D", "D"));
+                await Test("A", "TestA");
+                await Test("B", "TestB");
+                await Test("C", "C");
+                await Test("D", "D");
             }
             catch (Exception ex)
             {
@@ -29,7 +32,7 @@ namespace net_api_client
             Console.ReadLine();
         }
 
-        static async Task<string> Test(string inputMessage, string action)
+        static async Task Test(string inputMessage, string action)
         {
             var request = new HttpRequestMessage(HttpMethod.Post, $"{url}/Test/{action}")
             {
@@ -41,13 +44,21 @@ namespace net_api_client
 
             var response = await new HttpClient().SendAsync(request);
 
-            response.EnsureSuccessStatusCode();
+            if (response.IsSuccessStatusCode) {
+                var responseText = await response.Content.ReadAsStringAsync();
 
-            var responseText = await response.Content.ReadAsStringAsync();
+                var responseObject = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseText)!;
 
-            var responseObject = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseText)!;
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"{inputMessage} - {responseObject["outputMessage"]}");
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"{inputMessage} - {response.StatusCode}");
+            }
 
-            return responseObject["outputMessage"];
+            Console.ForegroundColor = ConsoleColor.Gray;
         }
     }
 }
