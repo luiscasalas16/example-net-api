@@ -8,7 +8,7 @@ namespace net_api_client
 
         static async Task Main(string[] args)
         {
-            Console.Write("net");
+            Console.WriteLine("net");
             Console.Write("press enter key to start");
             Console.ReadLine();
 

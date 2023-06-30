@@ -12,7 +12,7 @@ namespace netfw_api_client
 
         static async Task Main(string[] args)
         {
-            Console.Write("netfw");
+            Console.WriteLine("netfw");
             Console.Write("press enter key to start");
             Console.ReadLine();
 
