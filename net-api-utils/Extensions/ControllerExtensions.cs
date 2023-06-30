@@ -6,9 +6,9 @@ namespace net_api_utils.Extensions
 {
     public static class ControllerExtensions
     {
-        public static IActionResult ResultValid(this ControllerBase controller, object datos)
+        public static IActionResult ResultValid(this ControllerBase controller, object data)
         {
-            return new ResultValid(datos);
+            return new ResultValid(data);
         }
 
         public static IActionResult ResultInvalid(this ControllerBase controller, string error)
@@ -26,21 +26,21 @@ namespace net_api_utils.Extensions
             return new ResultUnexpected(error);
         }
 
-        public static bool Validate<T>(this ControllerBase controller, T modelo, out IActionResult resultadoInvalido)
+        public static bool Validate<T>(this ControllerBase controller, T model, out IActionResult resultinvalid)
         {
-            if (modelo == null)
+            if (model == null)
             {
-                modelo = (T) Activator.CreateInstance(typeof(T), new object[] { });
+                model = (T) Activator.CreateInstance(typeof(T), new object[] { });
 
-                controller.TryValidateModel(modelo);
+                controller.TryValidateModel(model);
             }
 
             if (!controller.ModelState.IsValid)
-                resultadoInvalido = controller.ResultInvalid(controller.ModelState);
+                resultinvalid = controller.ResultInvalid(controller.ModelState);
             else
-                resultadoInvalido = null;
+                resultinvalid = null;
 
-            return resultadoInvalido != null;
+            return resultinvalid != null;
         }
     }
 }

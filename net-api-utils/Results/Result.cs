@@ -14,10 +14,12 @@ namespace net_api_utils.Results
 
         public Task ExecuteResultAsync(ActionContext context)
         {
-            return Task.FromResult(new HttpResponseMessage(Code)
+            var objectResult = new ObjectResult(Data)
             {
-                Content = new StringContent(JsonConvert.SerializeObject(Data), System.Text.Encoding.UTF8, "application/json")
-            });
+                StatusCode = (int) Code
+            };
+
+            return objectResult.ExecuteResultAsync(context);
         }
     }
 }

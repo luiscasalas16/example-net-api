@@ -8,9 +8,9 @@ namespace netfw_api_utils.Extensiones
 {
     public static class ControllerExtensions
     {
-        public static IHttpActionResult ResultValid(this ApiController controller, object datos)
+        public static IHttpActionResult ResultValid(this ApiController controller, object data)
         {
-            return new ResultValid(datos);
+            return new ResultValid(data);
         }
 
         public static IHttpActionResult ResultInvalid(this ApiController controller, string error)
@@ -28,21 +28,21 @@ namespace netfw_api_utils.Extensiones
             return new ResultUnexpected(error);
         }
 
-        public static bool Validate<T>(this ApiController controller, T modelo, out IHttpActionResult resultadoInvalido)
+        public static bool Validate<T>(this ApiController controller, T model, out IHttpActionResult resultinvalid)
         {
-            if (modelo == null)
+            if (model == null)
             {
-                modelo = (T) Activator.CreateInstance(typeof(T), new object[] { });
+                model = (T) Activator.CreateInstance(typeof(T), new object[] { });
 
-                controller.Validate(modelo);
+                controller.Validate(model);
             }
 
             if (!controller.ModelState.IsValid)
-                resultadoInvalido = controller.ResultInvalid(controller.ModelState);
+                resultinvalid = controller.ResultInvalid(controller.ModelState);
             else
-                resultadoInvalido = null;
+                resultinvalid = null;
 
-            return resultadoInvalido != null;
+            return resultinvalid != null;
         }
     }
 }

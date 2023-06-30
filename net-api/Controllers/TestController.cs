@@ -28,7 +28,7 @@ namespace net_api.Controllers
         {
             return this.ResultValid(new TestAResultDto()
             {
-                OutputMessage = parameters.InputMessage
+                OutputMessage = $"{parameters.InputMessage} - A - {DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fffff")}"
             });
         }
 
@@ -37,7 +37,7 @@ namespace net_api.Controllers
         {
             return this.ResultValid(new TestBResultDto()
             {
-                OutputMessage = parameters.InputMessage
+                OutputMessage = $"{parameters.InputMessage} - B - {DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fffff")}"
             });
         }
     }
