@@ -23,7 +23,7 @@ namespace net_api.Controllers
             return true;
         }
 
-        [HttpPost("A")]
+        [HttpPost("TestA")]
         public IActionResult TestA([FromForm] TestADto parameters)
         {
             if (this.Validate(parameters, out IActionResult resultado)) return resultado;

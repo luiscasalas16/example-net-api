@@ -8,6 +8,7 @@ namespace net_api_client
 
         static async Task Main(string[] args)
         {
+            Console.Write("net");
             Console.Write("press enter key to start");
             Console.ReadLine();
 
@@ -28,7 +29,7 @@ namespace net_api_client
 
         static async Task<string> TestA(string inputMessage)
         {
-            var request = new HttpRequestMessage(HttpMethod.Post, $"{url}/Test/A")
+            var request = new HttpRequestMessage(HttpMethod.Post, $"{url}/Test/TestA")
             {
                 Content = new MultipartFormDataContent
                 {

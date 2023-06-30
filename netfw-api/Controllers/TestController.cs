@@ -29,6 +29,7 @@ namespace netfw_api.Controllers
         }
 
         [HttpPost]
+        [ActionName("B")]
         public IHttpActionResult TestB(TestBDto parameters)
         {
             if (this.Validate(parameters, out IHttpActionResult resultado)) return resultado;

@@ -12,6 +12,7 @@ namespace netfw_api_client
 
         static async Task Main(string[] args)
         {
+            Console.Write("netfw");
             Console.Write("press enter key to start");
             Console.ReadLine();
 
@@ -53,7 +54,7 @@ namespace netfw_api_client
 
         static async Task<string> TestB(string inputMessage)
         {
-            var request = new HttpRequestMessage(HttpMethod.Post, $"{url}/Test/TestB")
+            var request = new HttpRequestMessage(HttpMethod.Post, $"{url}/Test/B")
             {
                 Content = new MultipartFormDataContent
                 {
