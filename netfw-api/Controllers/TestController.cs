@@ -24,10 +24,23 @@ namespace netfw_api.Controllers
         }
 
         [HttpPost]
-        [ActionName("B")]
         public IHttpActionResult TestB(TestDto parameters)
         {
             return Test(parameters, "B");
+        }
+
+        [HttpPost]
+        [ActionName("C")]
+        public IHttpActionResult TestC(TestDto parameters)
+        {
+            return Test(parameters, "C");
+        }
+
+        [HttpPost]
+        [ActionName("D")]
+        public IHttpActionResult TestD(TestDto parameters)
+        {
+            return Test(parameters, "D");
         }
 
         private IHttpActionResult Test(TestDto parameters, string id)

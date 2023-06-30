@@ -29,10 +29,22 @@ namespace net_api.Controllers
             return Test(parameters, "A");
         }
 
-        [HttpPost("B")]
+        [HttpPost("TestB")]
         public IActionResult TestB([FromForm] TestDto parameters)
         {
             return Test(parameters, "B");
+        }
+
+        [HttpPost("C")]
+        public IActionResult TestC([FromForm] TestDto parameters)
+        {
+            return Test(parameters, "C");
+        }
+
+        [HttpPost("D")]
+        public IActionResult TestD([FromForm] TestDto parameters)
+        {
+            return Test(parameters, "D");
         }
 
         private IActionResult Test(TestDto parameters, string id)

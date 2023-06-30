@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using static System.Collections.Specialized.BitVector32;
 
 namespace netfw_api_client
 {
@@ -18,8 +19,10 @@ namespace netfw_api_client
 
             try
             {
-                Console.WriteLine(await TestA("test method"));
-                Console.WriteLine(await TestB("test method"));
+                Console.WriteLine(await Test("A", "TestA"));
+                Console.WriteLine(await Test("B", "TestB"));
+                Console.WriteLine(await Test("C", "C"));
+                Console.WriteLine(await Test("D", "D"));
             }
             catch (Exception ex)
             {
@@ -31,30 +34,9 @@ namespace netfw_api_client
             Console.ReadLine();
         }
 
-        static async Task<string> TestA(string inputMessage)
+        static async Task<string> Test(string inputMessage, string action)
         {
-            var request = new HttpRequestMessage(HttpMethod.Post, $"{url}/Test/TestA")
-            {
-                Content = new MultipartFormDataContent
-                {
-                    { new StringContent(inputMessage), "InputMessage" }
-                }
-            };
-
-            var response = await new HttpClient().SendAsync(request);
-
-            response.EnsureSuccessStatusCode();
-
-            var responseText = await response.Content.ReadAsStringAsync();
-
-            var responseObject = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseText);
-
-            return responseObject["OutputMessage"];
-        }
-
-        static async Task<string> TestB(string inputMessage)
-        {
-            var request = new HttpRequestMessage(HttpMethod.Post, $"{url}/Test/B")
+            var request = new HttpRequestMessage(HttpMethod.Post, $"{url}/Test/{action}")
             {
                 Content = new MultipartFormDataContent
                 {
