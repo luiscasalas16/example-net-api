@@ -6,12 +6,12 @@ namespace net_api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class TestController : ControllerBase
+    public class Test1Controller : ControllerBase
     {
-        private readonly ILogger<TestController> _logger;
+        private readonly ILogger<Test1Controller> _logger;
         private readonly IConfiguration _configuration;
 
-        public TestController(ILogger<TestController> logger, IConfiguration configuration)
+        public Test1Controller(ILogger<Test1Controller> logger, IConfiguration configuration)
         {
             _logger = logger;
             _configuration = configuration;
@@ -51,7 +51,7 @@ namespace net_api.Controllers
         {
             if (this.Validate(parameters, out IActionResult resultado)) return resultado;
 
-            return this.ResultValid(new TestResultDto()
+            return this.ResultValid(new TestDtoResult()
             {
                 OutputMessage = $"{parameters.InputMessage} - {id} - {DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fffff")}"
             });

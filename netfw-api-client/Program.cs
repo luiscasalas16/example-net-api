@@ -23,10 +23,10 @@ namespace netfw_api_client
 
             try
             {
-                await Test("A", "TestA");
-                await Test("B", "TestB");
-                await Test("C", "C");
-                await Test("D", "D");
+                await Test("1 - A", "Test1", "TestA");
+                await Test("1 - B", "Test1", "TestB");
+                await Test("1 - C", "Test1", "C");
+                await Test("1 - D", "Test1", "D");
             }
             catch (Exception ex)
             {
@@ -38,9 +38,9 @@ namespace netfw_api_client
             Console.ReadLine();
         }
 
-        static async Task Test(string inputMessage, string action)
+        static async Task Test(string inputMessage, string controller, string action)
         {
-            var request = new HttpRequestMessage(HttpMethod.Post, $"{url}/Test/{action}")
+            var request = new HttpRequestMessage(HttpMethod.Post, $"{url}/{controller}/{action}")
             {
                 Content = new MultipartFormDataContent
                 {

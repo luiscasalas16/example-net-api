@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "net-api-utils", "net-api-ut
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netfw-api-utils", "netfw-api-utils\netfw-api-utils.csproj", "{187CEBCD-6E8B-4181-A9F4-252DB2793F9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "net-api-client", "net-api-client\net-api-client.csproj", "{333E5F8B-4E30-4C0F-8CC5-B0644296C1CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "net-api-client", "net-api-client\net-api-client.csproj", "{333E5F8B-4E30-4C0F-8CC5-B0644296C1CF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netfw-api-client", "netfw-api-client\netfw-api-client.csproj", "{C7B0D4A6-C564-4B29-9468-AD5355AA0D26}"
 EndProject
