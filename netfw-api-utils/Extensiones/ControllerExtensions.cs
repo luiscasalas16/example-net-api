@@ -8,6 +8,10 @@ namespace netfw_api_utils.Extensions
 {
     public static class ControllerExtensions
     {
+        public static Result ResultValid(this ApiController controller)
+        {
+            return new ResultValid(null);
+        }
         public static Result ResultValid(this ApiController controller, object data)
         {
             return new ResultValid(data);

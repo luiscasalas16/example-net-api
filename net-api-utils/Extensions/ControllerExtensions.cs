@@ -6,6 +6,11 @@ namespace net_api_utils.Extensions
 {
     public static class ControllerExtensions
     {
+        public static Result ResultValid(this ControllerBase controller)
+        {
+            return new ResultValid(null!);
+        }
+
         public static Result ResultValid(this ControllerBase controller, object data)
         {
             return new ResultValid(data);

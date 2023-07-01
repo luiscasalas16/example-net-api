@@ -35,13 +35,19 @@ namespace netfw_api_client
                 await TestPost("1 - C", "Test1", "CPost");
                 await TestPost("1 - D", "Test1", "DPost");
 
-                await Test2GetAll();
-                await Test2GetId();
-                await Test2Insert();
-                await Test2Update();
-                await Test2Delete();
+                await TestGetAll("Test2");
+                await TestGetId("Test2");
+                await TestInsert("Test2");
+                await TestUpdate("Test2");
+                await TestDelete("Test2");
 
-                await TestGet("1 - A", "Test3", "ErrorGet");
+                await TestGetAll("Test3");
+                await TestGetId("Test3");
+                await TestInsert("Test3");
+                await TestUpdate("Test3");
+                await TestDelete("Test3");
+
+                await TestGet("1 - A", "Test4", "ErrorGet");
             }
             catch (Exception ex)
             {
@@ -77,23 +83,23 @@ namespace netfw_api_client
             await TestExecute(test, request);
         }
 
-        static async Task Test2GetAll()
+        static async Task TestGetAll(string controller)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"{url}/Test2");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{url}/{controller}");
 
-            await TestExecute("Test2GetAll", request);
+            await TestExecute($"{controller}GetAll", request);
         }
 
-        static async Task Test2GetId()
+        static async Task TestGetId(string controller)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"{url}/Test2/1");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{url}/{controller}/1");
 
-            await TestExecute("Test2GetId", request);
+            await TestExecute($"{controller}GetId", request);
         }
 
-        static async Task Test2Insert()
+        static async Task TestInsert(string controller)
         {
-            var request = new HttpRequestMessage(HttpMethod.Post, $"{url}/Test2");
+            var request = new HttpRequestMessage(HttpMethod.Post, $"{url}/{controller}");
 
             request.Content = new StringContent
             (
@@ -106,12 +112,12 @@ namespace netfw_api_client
                 "application/json"
             );
 
-            await TestExecute("Test2Insert", request);
+            await TestExecute($"{controller}Insert", request);
         }
 
-        static async Task Test2Update()
+        static async Task TestUpdate(string controller)
         {
-            var request = new HttpRequestMessage(HttpMethod.Put, $"{url}/Test2/1");
+            var request = new HttpRequestMessage(HttpMethod.Put, $"{url}/{controller}/1");
 
             request.Content = new StringContent
             (
@@ -124,14 +130,14 @@ namespace netfw_api_client
                 "application/json"
             );
 
-            await TestExecute("Test2Update", request);
+            await TestExecute($"{controller}Update", request);
         }
 
-        static async Task Test2Delete()
+        static async Task TestDelete(string controller)
         {
-            var request = new HttpRequestMessage(HttpMethod.Delete, $"{url}/Test2/1");
+            var request = new HttpRequestMessage(HttpMethod.Delete, $"{url}/{controller}/1");
 
-            await TestExecute("Test2Delete", request);
+            await TestExecute($"{controller}Delete", request);
         }
 
         static async Task TestExecute(string test, HttpRequestMessage request)
