@@ -1,0 +1,76 @@
+﻿using Bogus;
+using Microsoft.AspNetCore.Mvc;
+using net_api.Models;
+
+namespace net_api.Controllers
+{
+    [ApiController, Route("[controller]")]
+    public class Test2Controller : ControllerBase
+    {
+        private readonly ILogger<Test1Controller> _logger;
+        private readonly IConfiguration _configuration;
+
+        public Test2Controller(ILogger<Test1Controller> logger, IConfiguration configuration)
+        {
+            _logger = logger;
+            _configuration = configuration;
+        }
+
+        [HttpGet]
+        public IEnumerable<TestEntityDto> Get()
+        {
+            var result = new Faker<TestEntityDto>()
+                .RuleFor(o => o.Id, f => f.Random.Int(1, 100))
+                .RuleFor(o => o.FistName, f => f.Name.FirstName())
+                .RuleFor(o => o.LastName, f => f.Name.LastName())
+                .RuleFor(o => o.Email, f => f.Internet.Email());
+
+            return result.Generate(2);
+        }
+
+        [HttpGet("{id}")]
+        public TestEntityDto Get(int id)
+        {
+            var result = new Faker<TestEntityDto>()
+                .RuleFor(o => o.Id, id)
+                .RuleFor(o => o.FistName, f => f.Name.FirstName())
+                .RuleFor(o => o.LastName, f => f.Name.LastName())
+                .RuleFor(o => o.Email, f => f.Internet.Email());
+
+            return result.Generate(1)[0];
+        }
+
+        [HttpPost]
+        public TestEntityDto Post([FromForm] TestEntityDto value)
+        {
+            Assert(value.FistName == "Hello");
+            Assert(value.LastName == "World");
+            Assert(value.Email == "hello@world.com");
+
+            value.Id = new Faker().Random.Int(1, 100);
+
+            return value;
+        }
+
+        [HttpPut("{id}")]
+        public void Put(int id, [FromForm] TestEntityDto value)
+        {
+            Assert(id == 1);
+            Assert(value.FistName == "Hello");
+            Assert(value.LastName == "World");
+            Assert(value.Email == "hello@world.com");
+        }
+
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+            Assert(id == 1);
+        }
+
+        private void Assert(bool expression)
+        {
+            if (!expression)
+                throw new Exception("error");
+        }
+    }
+}

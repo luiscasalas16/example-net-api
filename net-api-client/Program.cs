@@ -29,6 +29,12 @@ namespace net_api_client
                 await Test1Post("1 - B", "Test1", "PostB");
                 await Test1Post("1 - C", "Test1", "CPost");
                 await Test1Post("1 - D", "Test1", "DPost");
+
+                await Test2GetAll();
+                await Test2GetId();
+                await Test2Insert();
+                await Test2Update();
+                await Test2Delete();
             }
             catch (Exception ex)
             {
@@ -71,6 +77,86 @@ namespace net_api_client
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"{test} - {responseObject["outputMessage"]}");
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"{test} - {response.StatusCode}");
+            }
+
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine();
+        }
+
+        static async Task Test2GetAll()
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{url}/Test2");
+
+            await Test2Execute("Test2GetAll", request);
+        }
+
+        static async Task Test2GetId()
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{url}/Test2/1");
+
+            await Test2Execute("Test2GetId", request);
+        }
+
+        static async Task Test2Insert()
+        {
+            var request = new HttpRequestMessage(HttpMethod.Post, $"{url}/Test2");
+
+            var collection = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string> ("fistName", "Hello"),
+                new KeyValuePair<string, string> ("lastName", "World"),
+                new KeyValuePair<string, string> ("email", "hello@world.com")
+            };
+
+            var content = new FormUrlEncodedContent(collection);
+
+            request.Content = content;
+
+            await Test2Execute("Test2Insert", request);
+        }
+
+        static async Task Test2Update()
+        {
+            var request = new HttpRequestMessage(HttpMethod.Put, $"{url}/Test2/1");
+
+            var collection = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string> ("fistName", "Hello"),
+                new KeyValuePair<string, string> ("lastName", "World"),
+                new KeyValuePair<string, string> ("email", "hello@world.com")
+            };
+
+            var content = new FormUrlEncodedContent(collection);
+
+            request.Content = content;
+
+            await Test2Execute("Test2Update", request);
+        }
+
+        static async Task Test2Delete()
+        {
+            var request = new HttpRequestMessage(HttpMethod.Delete, $"{url}/Test2/1");
+
+            await Test2Execute("Test2Delete", request);
+        }
+
+        static async Task Test2Execute(string test, HttpRequestMessage request)
+        {
+            var client = new HttpClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseText = await response.Content.ReadAsStringAsync();
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"{test} - {(!string.IsNullOrWhiteSpace(responseText) ? responseText : "empty")}");
             }
             else
             {
