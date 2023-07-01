@@ -10,64 +10,69 @@ namespace net_api.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return this.ResultValid(new { OutputMessage = $"0 - {DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fffff")}" });
+            return GetResult("0");
         }
 
         [HttpGet]
         public IActionResult GetA()
         {
-            return this.ResultValid(new { OutputMessage = $"A - {DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fffff")}" });
+            return GetResult("A");
         }
 
         [HttpGet]
         public IActionResult GetB()
         {
-            return this.ResultValid(new { OutputMessage = $"B - {DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fffff")}" });
+            return GetResult("B");
         }
 
         [HttpGet, ActionName("CGet")]
         public IActionResult GetC()
         {
-            return this.ResultValid(new { OutputMessage = $"C - {DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fffff")}" });
+            return GetResult("C");
         }
 
         [HttpGet, ActionName("DGet")]
         public IActionResult GetD()
         {
-            return this.ResultValid(new { OutputMessage = $"D - {DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fffff")}" });
+            return GetResult("D");
+        }
+
+        private IActionResult GetResult(string id)
+        {
+            return this.ResultValid(new { OutputMessage = $"{id} - {DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fffff")}" });
         }
 
         [HttpPost]
         public IActionResult Post(TestDto parameters)
         {
-            return Test(parameters, "0");
+            return PostResult(parameters, "0");
         }
 
         [HttpPost]
         public IActionResult PostA(TestDto parameters)
         {
-            return Test(parameters, "A");
+            return PostResult(parameters, "A");
         }
 
         [HttpPost]
         public IActionResult PostB(TestDto parameters)
         {
-            return Test(parameters, "B");
+            return PostResult(parameters, "B");
         }
 
         [HttpPost, ActionName("CPost")]
         public IActionResult PostC(TestDto parameters)
         {
-            return Test(parameters, "C");
+            return PostResult(parameters, "C");
         }
 
         [HttpPost, ActionName("DPost")]
         public IActionResult PostD(TestDto parameters)
         {
-            return Test(parameters, "D");
+            return PostResult(parameters, "D");
         }
 
-        private IActionResult Test(TestDto parameters, string id)
+        private IActionResult PostResult(TestDto parameters, string id)
         {
             if (this.Validate(parameters, out IActionResult resultado)) return resultado;
 
