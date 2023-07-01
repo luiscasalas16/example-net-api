@@ -142,18 +142,21 @@ namespace net_api_client
 
             var responseText = await response.Content.ReadAsStringAsync();
 
-            if (response.IsSuccessStatusCode)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"{test} - {response.StatusCode} - {(!string.IsNullOrWhiteSpace(responseText) ? responseText : "empty")}");
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"{test} - {response.StatusCode} - {(!string.IsNullOrWhiteSpace(responseText) ? responseText : "empty")}");
-            }
+            var responseTextPrint = responseText;
+
+            if (responseTextPrint == null)
+                responseTextPrint = "*null*";
+            else if (string.IsNullOrEmpty(responseTextPrint))
+                responseTextPrint = "*empty*";
+            else if (string.IsNullOrWhiteSpace(responseTextPrint))
+                responseTextPrint = "*whiteSpace*";
+
+            Console.ForegroundColor = response.IsSuccessStatusCode ? ConsoleColor.Green : ConsoleColor.Red;
+
+            Console.WriteLine($"{test} - {response.StatusCode} - {responseTextPrint}");
 
             Console.ForegroundColor = ConsoleColor.Gray;
+
             Console.WriteLine();
         }
     }
