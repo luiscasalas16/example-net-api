@@ -24,10 +24,17 @@ namespace netfw_api_client
 
             try
             {
-                //await Test1("1 - A", "Test1", "TestA");
-                //await Test1("1 - B", "Test1", "TestB");
-                //await Test1("1 - C", "Test1", "C");
-                //await Test1("1 - D", "Test1", "D");
+                await Test1Get("1 - 0", "Test1", "Get");
+                await Test1Get("1 - A", "Test1", "GetA");
+                await Test1Get("1 - B", "Test1", "GetB");
+                await Test1Get("1 - C", "Test1", "CGet");
+                await Test1Get("1 - D", "Test1", "DGet");
+
+                await Test1Post("1 - 0", "Test1", "Post");
+                await Test1Post("1 - A", "Test1", "PostA");
+                await Test1Post("1 - B", "Test1", "PostB");
+                await Test1Post("1 - C", "Test1", "CPost");
+                await Test1Post("1 - D", "Test1", "DPost");
 
                 await Test2GetAll();
                 await Test2GetId();
@@ -45,16 +52,28 @@ namespace netfw_api_client
             Console.ReadLine();
         }
 
-        static async Task Test1(string inputMessage, string controller, string action)
+        static async Task Test1Get(string test, string controller, string action)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{url}/{controller}/{action}");
+
+            await Test1Execute(test, request);
+        }
+
+        static async Task Test1Post(string test, string controller, string action)
         {
             var request = new HttpRequestMessage(HttpMethod.Post, $"{url}/{controller}/{action}")
             {
                 Content = new MultipartFormDataContent
                 {
-                    { new StringContent(inputMessage), "InputMessage" }
+                    { new StringContent(test), "InputMessage" }
                 }
             };
 
+            await Test1Execute(test, request);
+        }
+
+        static async Task Test1Execute(string test, HttpRequestMessage request)
+        {
             var response = await new HttpClient().SendAsync(request);
 
             if (response.IsSuccessStatusCode)
@@ -64,12 +83,12 @@ namespace netfw_api_client
                 var responseObject = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseText);
 
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"{inputMessage} - {responseObject["OutputMessage"]}");
+                Console.WriteLine($"{test} - {responseObject["OutputMessage"]}");
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"{inputMessage} - {response.StatusCode}");
+                Console.WriteLine($"{test} - {response.StatusCode}");
             }
 
             Console.ForegroundColor = ConsoleColor.Gray;
