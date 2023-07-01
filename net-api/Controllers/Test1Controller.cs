@@ -4,8 +4,7 @@ using net_api_utils.Extensions;
 
 namespace net_api.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
+    [ApiController, Route("[controller]/[action]")]
     public class Test1Controller : ControllerBase
     {
         private readonly ILogger<Test1Controller> _logger;
@@ -23,25 +22,25 @@ namespace net_api.Controllers
             return this.ResultValid(true);
         }
 
-        [HttpPost("[action]")]
+        [HttpPost]
         public IActionResult TestA([FromForm] TestDto parameters)
         {
             return Test(parameters, "A");
         }
 
-        [HttpPost("[action]")]
+        [HttpPost]
         public IActionResult TestB([FromForm] TestDto parameters)
         {
             return Test(parameters, "B");
         }
 
-        [HttpPost("C")]
+        [HttpPost, ActionName("C")]
         public IActionResult TestC([FromForm] TestDto parameters)
         {
             return Test(parameters, "C");
         }
 
-        [HttpPost("D")]
+        [HttpPost, ActionName("D")]
         public IActionResult TestD([FromForm] TestDto parameters)
         {
             return Test(parameters, "D");
