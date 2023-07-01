@@ -32,7 +32,7 @@ namespace net_api.Controllers
         }
 
         [HttpPost]
-        public TestEntityDto Post([FromBody] TestEntityDto value)
+        public TestEntityDto Post(TestEntityDto value)
         {
             Assert(value.FistName == "Hello");
             Assert(value.LastName == "World");
@@ -44,7 +44,7 @@ namespace net_api.Controllers
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] TestEntityDto value)
+        public void Put(int id, TestEntityDto value)
         {
             Assert(id == 1);
             Assert(value.FistName == "Hello");

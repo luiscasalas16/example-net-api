@@ -30,7 +30,7 @@ namespace netfw_api.Controllers
             return result.Generate(1)[0];
         }
 
-        public TestEntityDto Post([FromBody] TestEntityDto value)
+        public TestEntityDto Post(TestEntityDto value)
         {
             Assert(value.FistName == "Hello");
             Assert(value.LastName == "World");
@@ -41,7 +41,7 @@ namespace netfw_api.Controllers
             return value;
         }
 
-        public void Put(int id, [FromBody] TestEntityDto value)
+        public void Put(int id, TestEntityDto value)
         {
             Assert(id == 1);
             Assert(value.FistName == "Hello");
