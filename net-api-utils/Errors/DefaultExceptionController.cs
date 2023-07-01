@@ -25,7 +25,7 @@ namespace net_api_utils.Errores
             }
             else
             {
-                return new ResultUnexpected("Unexpected error.", context.Error.ToString());
+                return new ResultUnexpected("Unexpected error.", context.Error.Message);
             }
         }
     }

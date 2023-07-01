@@ -19,7 +19,7 @@ namespace netfw_api_utils.Errores
             }
             else
             {
-                context.Result = new ResultUnexpected("Ha ocurrido un error inesperado.", context.Exception.ToString());
+                context.Result = new ResultUnexpected("Ha ocurrido un error inesperado.", context.Exception.Message);
             }
         }
     }
