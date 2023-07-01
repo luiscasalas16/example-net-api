@@ -12,6 +12,7 @@ namespace netfw_api_utils.Extensions
         {
             return new ResultValid(null);
         }
+
         public static Result ResultValid(this ApiController controller, object data)
         {
             return new ResultValid(data);
