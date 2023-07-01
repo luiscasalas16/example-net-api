@@ -38,31 +38,31 @@ namespace net_api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromForm] TestDto parameters)
+        public IActionResult Post(TestDto parameters)
         {
             return Test(parameters, "0");
         }
 
         [HttpPost]
-        public IActionResult PostA([FromForm] TestDto parameters)
+        public IActionResult PostA(TestDto parameters)
         {
             return Test(parameters, "A");
         }
 
         [HttpPost]
-        public IActionResult PostB([FromForm] TestDto parameters)
+        public IActionResult PostB(TestDto parameters)
         {
             return Test(parameters, "B");
         }
 
         [HttpPost, ActionName("CPost")]
-        public IActionResult PostC([FromForm] TestDto parameters)
+        public IActionResult PostC(TestDto parameters)
         {
             return Test(parameters, "C");
         }
 
         [HttpPost, ActionName("DPost")]
-        public IActionResult PostD([FromForm] TestDto parameters)
+        public IActionResult PostD(TestDto parameters)
         {
             return Test(parameters, "D");
         }

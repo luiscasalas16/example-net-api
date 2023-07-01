@@ -57,10 +57,14 @@ namespace net_api_client
         {
             var request = new HttpRequestMessage(HttpMethod.Post, $"{url}/{controller}/{action}")
             {
-                Content = new MultipartFormDataContent
-                {
-                    { new StringContent(test), "InputMessage" }
-                }
+                Content = new StringContent
+                (
+                    @"{
+                        ""InputMessage"":""" + test + @"""
+                    }",
+                    null,
+                    "application/json"
+                )
             };
 
             await Test1Execute(test, request);
