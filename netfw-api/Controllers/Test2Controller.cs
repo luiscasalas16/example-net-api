@@ -41,17 +41,21 @@ namespace netfw_api.Controllers
             return value;
         }
 
-        public void Put(int id, TestEntityDto value)
+        public IHttpActionResult Put(int id, TestEntityDto value)
         {
             Assert(id == 1);
             Assert(value.FistName == "Hello");
             Assert(value.LastName == "World");
             Assert(value.Email == "hello@world.com");
+
+            return Ok();
         }
 
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
             Assert(id == 1);
+
+            return Ok();
         }
 
         private void Assert(bool expression)

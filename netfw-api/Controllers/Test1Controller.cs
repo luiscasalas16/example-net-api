@@ -1,5 +1,6 @@
 using netfw_api.Models;
 using netfw_api_utils.Extensions;
+using netfw_api_utils.Results;
 using System;
 using System.Web.Http;
 
@@ -8,73 +9,73 @@ namespace netfw_api.Controllers
     public class Test1Controller : ApiController
     {
         [HttpGet]
-        public IHttpActionResult Get()
+        public Result Get()
         {
             return GetResult("0");
         }
 
         [HttpGet]
-        public IHttpActionResult GetA()
+        public Result GetA()
         {
             return GetResult("A");
         }
 
         [HttpGet]
-        public IHttpActionResult GetB()
+        public Result GetB()
         {
             return GetResult("B");
         }
 
         [HttpGet, ActionName("CGet")]
-        public IHttpActionResult GetC()
+        public Result GetC()
         {
             return GetResult("C");
         }
 
         [HttpGet, ActionName("DGet")]
-        public IHttpActionResult GetD()
+        public Result GetD()
         {
             return GetResult("D");
         }
 
-        private IHttpActionResult GetResult(string id)
+        private Result GetResult(string id)
         {
             return this.ResultValid(new { OutputMessage = $"{id} - {DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fffff")}" });
         }
 
         [HttpPost]
-        public IHttpActionResult Post(TestDto parameters)
+        public Result Post(TestDto parameters)
         {
             return PostResult(parameters, "0");
         }
 
         [HttpPost]
-        public IHttpActionResult PostA(TestDto parameters)
+        public Result PostA(TestDto parameters)
         {
             return PostResult(parameters, "A");
         }
 
         [HttpPost]
-        public IHttpActionResult PostB(TestDto parameters)
+        public Result PostB(TestDto parameters)
         {
             return PostResult(parameters, "B");
         }
 
         [HttpPost, ActionName("CPost")]
-        public IHttpActionResult PostC(TestDto parameters)
+        public Result PostC(TestDto parameters)
         {
             return PostResult(parameters, "C");
         }
 
         [HttpPost, ActionName("DPost")]
-        public IHttpActionResult PostD(TestDto parameters)
+        public Result PostD(TestDto parameters)
         {
             return PostResult(parameters, "D");
         }
 
-        private IHttpActionResult PostResult(TestDto parameters, string id)
+        private Result PostResult(TestDto parameters, string id)
         {
-            if (this.Validate(parameters, out IHttpActionResult resultado)) return resultado;
+            if (this.Validate(parameters, out Result resultado)) return resultado;
 
             return this.ResultValid(new TestDtoResult()
             {
