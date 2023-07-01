@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Net;
 using System.Net.Http;
-using System.Runtime.Remoting.Contexts;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -26,7 +25,7 @@ namespace netfw_api_utils.Results
             {
                 return Task.FromResult(new HttpResponseMessage(Code)
                 {
-                    Content = new StringContent(JsonConvert.SerializeObject(Data), System.Text.Encoding.UTF8, "application/json")
+                    Content = new StringContent(JsonConvert.SerializeObject(Data))
                 });
             }
         }

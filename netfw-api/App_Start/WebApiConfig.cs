@@ -1,6 +1,8 @@
 ﻿using ApiMultiPartFormData;
 using netfw_api_utils.Errores;
-using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
@@ -12,6 +14,21 @@ namespace netfw_api
     {
         public static void Register(HttpConfiguration config)
         {
+            // set newtonsoft as default serializer and set default settings
+
+            var defaultSettings = new JsonSerializerSettings
+            {
+                DateFormatString = "dd/MM/yyyy HH:mm:ss",
+                Converters = new List<JsonConverter>
+                {
+                    new StringEnumConverter(),
+                }
+            };
+
+            JsonConvert.DefaultSettings = () => { return defaultSettings; };
+
+            config.Formatters.JsonFormatter.SerializerSettings = defaultSettings;
+
             config.MapHttpAttributeRoutes();
 
             // Register routes.

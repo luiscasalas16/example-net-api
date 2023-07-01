@@ -1,4 +1,5 @@
 using net_api_utils.Results;
+using Newtonsoft.Json.Converters;
 
 namespace net_api
 {
@@ -8,13 +9,20 @@ namespace net_api
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
-            {
-                options.InvalidModelStateResponseFactory = context =>
+            builder.Services.AddControllers()
+                .ConfigureApiBehaviorOptions(options =>
                 {
-                    return new ResultInvalid(context.ModelState);
-                };
-            });
+                    options.InvalidModelStateResponseFactory = context =>
+                    {
+                        return new ResultInvalid(context.ModelState);
+                    };
+                })
+                //set newtonsoft as default serializer and set default settings
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.DateFormatString = "dd/MM/yyyy HH:mm:ss";
+                    options.SerializerSettings.Converters.Add(new StringEnumConverter());
+                });
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             //builder.Services.AddEndpointsApiExplorer();
