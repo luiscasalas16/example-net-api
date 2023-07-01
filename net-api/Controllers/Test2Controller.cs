@@ -7,15 +7,6 @@ namespace net_api.Controllers
     [ApiController, Route("[controller]")]
     public class Test2Controller : ControllerBase
     {
-        private readonly ILogger<Test1Controller> _logger;
-        private readonly IConfiguration _configuration;
-
-        public Test2Controller(ILogger<Test1Controller> logger, IConfiguration configuration)
-        {
-            _logger = logger;
-            _configuration = configuration;
-        }
-
         [HttpGet]
         public IEnumerable<TestEntityDto> Get()
         {
@@ -41,7 +32,7 @@ namespace net_api.Controllers
         }
 
         [HttpPost]
-        public TestEntityDto Post([FromForm] TestEntityDto value)
+        public TestEntityDto Post([FromBody] TestEntityDto value)
         {
             Assert(value.FistName == "Hello");
             Assert(value.LastName == "World");
@@ -53,7 +44,7 @@ namespace net_api.Controllers
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromForm] TestEntityDto value)
+        public void Put(int id, [FromBody] TestEntityDto value)
         {
             Assert(id == 1);
             Assert(value.FistName == "Hello");

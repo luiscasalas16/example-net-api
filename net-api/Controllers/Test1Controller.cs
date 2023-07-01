@@ -7,15 +7,6 @@ namespace net_api.Controllers
     [ApiController, Route("[controller]/[action]")]
     public class Test1Controller : ControllerBase
     {
-        private readonly ILogger<Test1Controller> _logger;
-        private readonly IConfiguration _configuration;
-
-        public Test1Controller(ILogger<Test1Controller> logger, IConfiguration configuration)
-        {
-            _logger = logger;
-            _configuration = configuration;
-        }
-
         [HttpGet]
         public IActionResult Get()
         {

@@ -20,7 +20,7 @@ namespace netfw_api_client
             //Console.Write("press enter key to start");
             //Console.ReadLine();
 
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
 
             try
             {
@@ -113,16 +113,16 @@ namespace netfw_api_client
         {
             var request = new HttpRequestMessage(HttpMethod.Post, $"{url}/Test2");
 
-            var collection = new List<KeyValuePair<string, string>>
-            {
-                new KeyValuePair<string, string> ("fistName", "Hello"),
-                new KeyValuePair<string, string> ("lastName", "World"),
-                new KeyValuePair<string, string> ("email", "hello@world.com")
-            };
-
-            var content = new FormUrlEncodedContent(collection);
-
-            request.Content = content;
+            request.Content = new StringContent
+            (
+                @"{
+                    ""fistName"":""Hello"",
+                    ""lastName"":""World"",
+                    ""email"":""hello@world.com""
+                }",
+                null,
+                "application/json"
+            );
 
             await Test2Execute("Test2Insert", request);
         }
@@ -131,16 +131,16 @@ namespace netfw_api_client
         {
             var request = new HttpRequestMessage(HttpMethod.Put, $"{url}/Test2/1");
 
-            var collection = new List<KeyValuePair<string, string>>
-            {
-                new KeyValuePair<string, string> ("fistName", "Hello"),
-                new KeyValuePair<string, string> ("lastName", "World"),
-                new KeyValuePair<string, string> ("email", "hello@world.com")
-            };
-
-            var content = new FormUrlEncodedContent(collection);
-
-            request.Content = content;
+            request.Content = new StringContent
+            (
+                @"{
+                    ""fistName"":""Hello"",
+                    ""lastName"":""World"",
+                    ""email"":""hello@world.com""
+                }",
+                null,
+                "application/json"
+            );
 
             await Test2Execute("Test2Update", request);
         }
