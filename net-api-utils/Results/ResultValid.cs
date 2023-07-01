@@ -4,17 +4,11 @@ namespace net_api_utils.Results
 {
     public class ResultValid : Result
     {
-        private readonly object _data;
+        private const HttpStatusCode statusCode = HttpStatusCode.OK;
 
-        public ResultValid(object data)
+        public ResultValid(object content)
+            : base(content, statusCode)
         {
-            _data = data;
         }
-
-        public override ResultType Type => ResultType.Valid;
-
-        public override object Data => _data;
-
-        public override HttpStatusCode Code => HttpStatusCode.OK;
     }
 }

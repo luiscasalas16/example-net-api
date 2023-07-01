@@ -5,29 +5,21 @@ namespace net_api_utils.Results
 {
     public class ResultInvalid : Result
     {
-        private readonly List<ResultMessage> _errors;
+        private const HttpStatusCode statusCode = HttpStatusCode.BadRequest;
 
         public ResultInvalid(string error)
+            : base(new List<ResultMessage> { new ResultMessage(error) }, statusCode)
         {
-            _errors = new List<ResultMessage> { new ResultMessage(error) };
         }
 
         public ResultInvalid(List<string> errors)
+            : base(new List<ResultMessage>(errors.Select(t => new ResultMessage(t)).ToList()), statusCode)
         {
-            _errors = new List<ResultMessage> (errors.Select(t => new ResultMessage(t)).ToList());
         }
 
         public ResultInvalid(ModelStateDictionary modelState)
+            : base(modelState.Values.SelectMany(m => m.Errors).Select(e => new ResultMessage(e.ErrorMessage)).ToList(), statusCode)
         {
-            _errors = modelState.Values.SelectMany(m => m.Errors).Select(e => new ResultMessage(e.ErrorMessage)).ToList();
         }
-
-        public override ResultType Type => ResultType.Invalid;
-
-        public List<ResultMessage> Errors => _errors;
-
-        public override object Data => new { errores = _errors };
-
-        public override HttpStatusCode Code => HttpStatusCode.BadRequest;
     }
 }

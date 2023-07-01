@@ -1,34 +1,35 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace net_api_utils.Results
 {
     public abstract class Result : IActionResult
     {
-        public abstract ResultType Type { get; }
+        private readonly object _content;
+        private readonly HttpStatusCode _statusCode;
 
-        public abstract object Data { get; }
-
-        public abstract HttpStatusCode Code { get; }
+        public Result(object content, HttpStatusCode statusCode)
+        {
+            _content = content;
+            _statusCode = statusCode;
+        }
 
         public Task ExecuteResultAsync(ActionContext context)
         {
-            if (Data == null)
+            if (_content == null)
             {
-                context.HttpContext.Response.StatusCode = (int) Code;
+                var result = new StatusCodeResult((int) _statusCode);
 
-                return Task.CompletedTask;
+                return result.ExecuteResultAsync(context);
             }
             else
             {
-                var objectResult = new ObjectResult(Data)
+                var result = new ObjectResult(_content)
                 {
-                    StatusCode = (int) Code
+                    StatusCode = (int) _statusCode
                 };
 
-                return objectResult.ExecuteResultAsync(context);
+                return result.ExecuteResultAsync(context);
             }
         }
     }

@@ -9,17 +9,17 @@ namespace netfw_api_utils.Errores
         {
             if (context.Exception is ValidationException errorValidacion)
             {
-                context.Result = new ResultInvalid(errorValidacion.Message);
+                context.Result = new ResultInvalid(context.Request, errorValidacion.Message);
                 return;
             }
             else if (context.Exception is ConfigurationException errorConfiguracion)
             {
-                context.Result = new ResultInvalid(errorConfiguracion.Message);
+                context.Result = new ResultInvalid(context.Request, errorConfiguracion.Message);
                 return;
             }
             else
             {
-                context.Result = new ResultUnexpected("Ha ocurrido un error inesperado.", context.Exception.Message);
+                context.Result = new ResultUnexpected(context.Request, "Ha ocurrido un error inesperado.", context.Exception.Message);
             }
         }
     }

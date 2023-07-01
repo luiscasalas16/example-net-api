@@ -1,29 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Web.Http;
 
 namespace netfw_api_utils.Results
 {
     public class ResultUnexpected : Result
     {
-        private readonly List<ResultMessage> _errors;
+        private const HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
 
-        public ResultUnexpected(string error)
+        public ResultUnexpected(HttpRequestMessage request, string error)
+            : base(new List<ResultMessage> { new ResultMessage(error) }, statusCode, request)
         {
-            _errors = new List<ResultMessage> { new ResultMessage(error) };
         }
 
-        public ResultUnexpected(params string [] error)
+        public ResultUnexpected(HttpRequestMessage request, params string[] error)
+            : base(new List<ResultMessage>(error.Select(t => new ResultMessage(t))), statusCode, request)
         {
-            _errors = new List<ResultMessage> (error.Select(t => new ResultMessage(t)));
         }
-
-        public override ResultType Type => ResultType.Unexpected;
-
-        public List<ResultMessage> Errors => _errors;
-
-        public override object Data => new { errores = _errors };
-
-        public override HttpStatusCode Code => HttpStatusCode.InternalServerError;
     }
 }

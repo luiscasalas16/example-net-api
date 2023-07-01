@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,27 +6,25 @@ using System.Web.Http;
 
 namespace netfw_api_utils.Results
 {
-    public abstract class Result : IHttpActionResult
+    public class Result : IHttpActionResult
     {
-        public abstract ResultType Type { get; }
+        private readonly object _content;
+        private readonly HttpStatusCode _statusCode;
+        private readonly HttpRequestMessage _request;
 
-        public abstract object Data { get; }
-
-        public abstract HttpStatusCode Code { get; }
+        public Result(object content, HttpStatusCode statusCode, HttpRequestMessage request)
+        {
+            _content = content;
+            _statusCode = statusCode;
+            _request = request;
+        }
 
         public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
         {
-            if (Data == null)
-            {
-                return Task.FromResult(new HttpResponseMessage(Code));
-            }
+            if (_content == null)
+                return Task.FromResult(_request.CreateResponse(_statusCode));
             else
-            {
-                return Task.FromResult(new HttpResponseMessage(Code)
-                {
-                    Content = new StringContent(JsonConvert.SerializeObject(Data))
-                });
-            }
+                return Task.FromResult(_request.CreateResponse(_statusCode, _content));
         }
     }
 }

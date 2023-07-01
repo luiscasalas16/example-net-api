@@ -4,24 +4,16 @@ namespace net_api_utils.Results
 {
     public class ResultUnexpected : Result
     {
-        private readonly List<ResultMessage> _errors;
+        private const HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
 
         public ResultUnexpected(string error)
+            : base(new List<ResultMessage> { new ResultMessage(error) }, statusCode)
         {
-            _errors = new List<ResultMessage> { new ResultMessage(error) };
         }
 
-        public ResultUnexpected(params string [] error)
+        public ResultUnexpected(params string[] error)
+            : base(new List<ResultMessage>(error.Select(t => new ResultMessage(t))), statusCode)
         {
-            _errors = new List<ResultMessage> (error.Select(t => new ResultMessage(t)));
         }
-
-        public override ResultType Type => ResultType.Unexpected;
-
-        public List<ResultMessage> Errors => _errors;
-
-        public override object Data => new { errores = _errors };
-
-        public override HttpStatusCode Code => HttpStatusCode.InternalServerError;
     }
 }
