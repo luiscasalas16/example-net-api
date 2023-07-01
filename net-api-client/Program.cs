@@ -18,16 +18,16 @@ namespace net_api_client
 
             try
             {
-                await TestGet("1 - 0", "Test1", "Get");
-                await TestGet("1 - A", "Test1", "GetA");
-                await TestGet("1 - B", "Test1", "GetB");
-                await TestGet("1 - C", "Test1", "CGet");
-                await TestGet("1 - D", "Test1", "DGet");
-                await TestPost("1 - 0", "Test1", "Post");
-                await TestPost("1 - A", "Test1", "PostA");
-                await TestPost("1 - B", "Test1", "PostB");
-                await TestPost("1 - C", "Test1", "CPost");
-                await TestPost("1 - D", "Test1", "DPost");
+                await TestGet("Test1", "Get");
+                await TestGet("Test1", "GetA");
+                await TestGet("Test1", "GetB");
+                await TestGet("Test1", "CGet");
+                await TestGet("Test1", "DGet");
+                await TestPost("Test1", "Post");
+                await TestPost( "Test1", "PostA");
+                await TestPost("Test1", "PostB");
+                await TestPost("Test1", "CPost");
+                await TestPost("Test1", "DPost");
 
                 await TestGetAll("Test2");
                 await TestGetId("Test2");
@@ -41,7 +41,10 @@ namespace net_api_client
                 await TestUpdate("Test3");
                 await TestDelete("Test3");
 
-                await TestGet("1 - A", "Test4", "ErrorGet");
+                await TestGet("Test4", "ErrorGet");
+
+                await TestGet("Test5", "Get1");
+                await TestGet("Test5", "Get2");
             }
             catch (Exception ex)
             {
@@ -53,28 +56,26 @@ namespace net_api_client
             Console.ReadLine();
         }
 
-        static async Task TestGet(string test, string controller, string action)
+        static async Task TestGet(string controller, string action)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, $"{url}/{controller}/{action}");
 
-            await TestExecute(test, request);
+            await TestExecute($"{controller} - {action}", request);
         }
 
-        static async Task TestPost(string test, string controller, string action)
+        static async Task TestPost(string controller, string action)
         {
             var request = new HttpRequestMessage(HttpMethod.Post, $"{url}/{controller}/{action}")
             {
                 Content = new StringContent
                 (
-                    @"{
-                        ""InputMessage"":""" + test + @"""
-                    }",
+                    $"{{ \"InputMessage\": \"{controller} - {action}\" }}",
                     null,
                     "application/json"
                 )
             };
 
-            await TestExecute(test, request);
+            await TestExecute($"{controller} - {action}", request);
         }
 
         static async Task TestGetAll(string controller)
@@ -150,10 +151,24 @@ namespace net_api_client
                 responseTextPrint = "*empty*";
             else if (string.IsNullOrWhiteSpace(responseTextPrint))
                 responseTextPrint = "*whiteSpace*";
+            else
+            {
+                try
+                {
+                    var responseObject = JsonConvert.DeserializeObject(responseTextPrint);
+
+                    responseTextPrint = JsonConvert.SerializeObject(responseObject, Formatting.Indented);
+                }
+                catch (Exception)
+                {
+                    //ignore
+                }
+            }
 
             Console.ForegroundColor = response.IsSuccessStatusCode ? ConsoleColor.Green : ConsoleColor.Red;
 
-            Console.WriteLine($"{test} - {response.StatusCode} - {responseTextPrint}");
+            Console.WriteLine($"{test} - {response.StatusCode}");
+            Console.WriteLine(responseTextPrint);
 
             Console.ForegroundColor = ConsoleColor.Gray;
 
