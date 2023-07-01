@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net;
 
@@ -14,12 +15,21 @@ namespace net_api_utils.Results
 
         public Task ExecuteResultAsync(ActionContext context)
         {
-            var objectResult = new ObjectResult(Data)
+            if (Data == null)
             {
-                StatusCode = (int) Code
-            };
+                context.HttpContext.Response.StatusCode = (int) Code;
 
-            return objectResult.ExecuteResultAsync(context);
+                return Task.CompletedTask;
+            }
+            else
+            {
+                var objectResult = new ObjectResult(Data)
+                {
+                    StatusCode = (int) Code
+                };
+
+                return objectResult.ExecuteResultAsync(context);
+            }
         }
     }
 }
