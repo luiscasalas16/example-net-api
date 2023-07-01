@@ -32,6 +32,8 @@ namespace netfw_api_client
                 await Test2GetAll();
                 await Test2GetId();
                 await Test2Insert();
+                await Test2Update();
+                await Test2Delete();
             }
             catch (Exception ex)
             {
@@ -108,10 +110,27 @@ namespace netfw_api_client
 
         static async Task Test2Update()
         {
+            var request = new HttpRequestMessage(HttpMethod.Put, $"{url}/Test2/1");
+
+            var collection = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string> ("fistName", "Hello"),
+                new KeyValuePair<string, string> ("lastName", "World"),
+                new KeyValuePair<string, string> ("email", "hello@world.com")
+            };
+
+            var content = new FormUrlEncodedContent(collection);
+
+            request.Content = content;
+
+            await Test2Execute("Test2Update", request);
         }
 
         static async Task Test2Delete()
         {
+            var request = new HttpRequestMessage(HttpMethod.Delete, $"{url}/Test2/1");
+
+            await Test2Execute("Test2Delete", request);
         }
 
         static async Task Test2Execute(string test, HttpRequestMessage request)
@@ -125,7 +144,7 @@ namespace netfw_api_client
                 var responseText = await response.Content.ReadAsStringAsync();
 
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"{test} - {responseText}");
+                Console.WriteLine($"{test} - {(!string.IsNullOrWhiteSpace(responseText) ? responseText : "empty")}");
             }
             else
             {

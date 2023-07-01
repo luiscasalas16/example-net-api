@@ -1,5 +1,6 @@
 ﻿using Bogus;
 using netfw_api.Models;
+using System;
 using System.Collections.Generic;
 using System.Web.Http;
 
@@ -31,17 +32,32 @@ namespace netfw_api.Controllers
 
         public TestEntityDto Post([FromBody] TestEntityDto value)
         {
+            Assert(value.FistName == "Hello");
+            Assert(value.LastName == "World");
+            Assert(value.Email == "hello@world.com");
+
             value.Id = new Faker().Random.Int(1, 100);
 
             return value;
         }
 
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] TestEntityDto value)
         {
+            Assert(id == 1);
+            Assert(value.FistName == "Hello");
+            Assert(value.LastName == "World");
+            Assert(value.Email == "hello@world.com");
         }
 
         public void Delete(int id)
         {
+            Assert(id == 1);
+        }
+
+        private void Assert(bool expression)
+        {
+            if (!expression)
+                throw new Exception("error");
         }
     }
 }
