@@ -46,6 +46,9 @@ namespace netfw_api_client
                 await TestDelete("Test3");
 
                 await TestGet("Test4", "ErrorGet");
+
+                await TestGet("Test5", "Get1");
+                await TestGet("Test5", "Get2");
             }
             catch (Exception ex)
             {

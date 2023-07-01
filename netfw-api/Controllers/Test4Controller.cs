@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Web.Http;
 
-namespace net_api.Controllers
+namespace netfw_api.Controllers
 {
     public class Test4Controller : ApiController
     {
