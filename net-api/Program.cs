@@ -12,7 +12,7 @@ namespace net_api
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllers()
-                // Enable 
+                // Enables automatic validation of objects that have validation annotations. 
                 .ConfigureApiBehaviorOptions(options =>
                 {
                     options.SuppressModelStateInvalidFilter = false;
