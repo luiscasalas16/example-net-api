@@ -44,3 +44,8 @@ Cada API implementa los siguientes ejemplos y pruebas:
 - Test 3: Controlador para CRUD de entidad utilizando nombres de método múltiples métodos con el mismo verbo de http y resultados con clases personalizadas.
 - Test 4: Pruebas de manejo de errores.
 - Test 5: Pruebas de serialización de objeto con los tipos de datos más comunes, para visualizar el formato de serialización en Json.
+
+TODO:
+- Archivos.
+- Swagger.
+- Autenticación.
