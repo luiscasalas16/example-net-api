@@ -18,33 +18,43 @@ namespace net_api_client
 
             try
             {
-                await TestGet("Test1", "Get");
-                await TestGet("Test1", "GetA");
-                await TestGet("Test1", "GetB");
-                await TestGet("Test1", "CGet");
-                await TestGet("Test1", "DGet");
-                await TestPost("Test1", "Post");
-                await TestPost( "Test1", "PostA");
-                await TestPost("Test1", "PostB");
-                await TestPost("Test1", "CPost");
-                await TestPost("Test1", "DPost");
+                //await TestGet("Test1", "Get");
+                //await TestGet("Test1", "GetA");
+                //await TestGet("Test1", "GetB");
+                //await TestGet("Test1", "CGet");
+                //await TestGet("Test1", "DGet");
+                //await TestPost("Test1", "Post");
+                //await TestPost( "Test1", "PostA");
+                //await TestPost("Test1", "PostB");
+                //await TestPost("Test1", "CPost");
+                //await TestPost("Test1", "DPost");
 
-                await TestGetAll("Test2");
-                await TestGetId("Test2");
-                await TestInsert("Test2");
-                await TestUpdate("Test2");
-                await TestDelete("Test2");
+                //await TestGetAll("Test2");
+                //await TestGetId("Test2");
+                //await TestInsert("Test2");
+                //await TestUpdate("Test2");
+                //await TestDelete("Test2");
 
-                await TestGetAll("Test3");
-                await TestGetId("Test3");
-                await TestInsert("Test3");
-                await TestUpdate("Test3");
-                await TestDelete("Test3");
+                //await TestGetAll("Test3");
+                //await TestGetId("Test3");
+                //await TestInsert("Test3");
+                //await TestUpdate("Test3");
+                //await TestDelete("Test3");
 
-                await TestGet("Test4", "ErrorGet");
+                //await TestGet("Test4", "ErrorGet");
+                await TestValidation("Test4", "ErrorValidation",
+                @"{
+                    ""email"":""hello@world.com""
+                }");
+                await TestValidation("Test4", "ErrorValidation",
+                @"{
+                    ""fistName"":""Hello"",
+                    ""lastName"":""World"",
+                    ""email"":""hello@world.com""
+                }");
 
-                await TestGet("Test5", "Get1");
-                await TestGet("Test5", "Get2");
+                //await TestGet("Test5", "Get1");
+                //await TestGet("Test5", "Get2");
             }
             catch (Exception ex)
             {
@@ -133,6 +143,20 @@ namespace net_api_client
             var request = new HttpRequestMessage(HttpMethod.Delete, $"{url}/{controller}/1");
 
             await TestExecute($"{controller}Delete", request);
+        }
+        
+        static async Task TestValidation(string controller, string action, string content)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Post, $"{url}/{controller}/{action}");
+
+            request.Content = new StringContent
+            (
+                content,
+                null,
+                "application/json"
+            );
+
+            await TestExecute($"{controller} - {action}", request);
         }
 
         static async Task TestExecute(string test, HttpRequestMessage request)

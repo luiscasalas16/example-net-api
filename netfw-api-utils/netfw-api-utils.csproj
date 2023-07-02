@@ -54,6 +54,7 @@
     <Compile Include="Errores\DefaultExceptionHandler.cs" />
     <Compile Include="Errores\ValidationException.cs" />
     <Compile Include="Extensiones\ControllerExtensions.cs" />
+    <Compile Include="Filters\ValidateModelAttribute .cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\Result.cs" />
     <Compile Include="Results\ResultInvalid.cs" />

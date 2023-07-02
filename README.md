@@ -7,10 +7,11 @@ Proyectos de ejemplo de API en .Net Framework y .Net Core. En ambos se implement
 
 Cada API implementa los siguientes requerimientos:
 - Utilizan un manejo predeterminado de excepciones, por lo que no es necesario utilizar try-catch en cada método.
-- Utiliza el serializador Newtonsoft como serializador predeterminado para Json y establece las siguientes configuraciones predeterminadas:
+- Utilizan el serializador Newtonsoft como serializador predeterminado para Json y establece las siguientes configuraciones predeterminadas:
     - El CamelCasePropertyNamesContractResolver para que las propiedades de las clases se serialicen en camel case.
     - El StringEnumConverter para que los enumerados se serialicen con el texto y no con el número del enumerado.
     - Si es requerido se puede establecer en el DateFormatString el formato por defecto con el que serializan en texto los DateTimes.
+- Utilizan la validación automática de los objetos que tengan anotaciones de validación, por lo que no es necesario hacer la validación del modelo en cada método, el método sólo se invoca si el objeto es válido. Si el objeto es inválido se retorna un resultado inválido con los mensajes de validación.
 - Para .Net Framework se registran rutas personalizadas para habilitar el uso de múltiples métodos con el mismo verbo de http y el uso de métodos con el mismo nombre del verbo de http.
 - Implementan clases para resultados personalizados, con el objetivo de estandarizar las respuestas que puede tener el API, con el fin de estandarizar el código fuente y facilitar a la aplicación que lo consuma el manejo de las respuestas. Para facilitar el uso de las clases de resultados se implementaron métodos de extensión para el controlador. El método del controlador deberá utilizar cómo tipo de retorno “Result”, que es la clase base y utilizar el método extendido para el resultado correspondiente:
 	- “this.ResultValid(…)”: Para retornar un resultado válido. Se retorna el código 200.

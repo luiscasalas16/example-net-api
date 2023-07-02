@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using net_api_utils.Results;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
@@ -11,8 +12,10 @@ namespace net_api
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllers()
+                // Enable 
                 .ConfigureApiBehaviorOptions(options =>
                 {
+                    options.SuppressModelStateInvalidFilter = false;
                     options.InvalidModelStateResponseFactory = context =>
                     {
                         return new ResultInvalid(context.ModelState);

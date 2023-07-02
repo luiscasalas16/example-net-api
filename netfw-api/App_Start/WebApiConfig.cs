@@ -1,4 +1,5 @@
 ﻿using ApiMultiPartFormData;
+using netfw_api.Filters;
 using netfw_api_utils.Errores;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -50,6 +51,9 @@ namespace netfw_api
 
             // Register multipart/form-data formatter.
             //config.Formatters.Add(new MultipartFormDataFormatter());
+
+            // Enables automatic validation of objects that have validation annotations. 
+            config.Filters.Add(new ValidateModelAttribute());
         }
     }
 }
