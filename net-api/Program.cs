@@ -39,6 +39,7 @@ namespace net_api
             //    app.UseSwaggerUI();
             //}
 
+            // Implements default exception handler.
             app.UseExceptionHandler("/error");
 
             app.UseAuthorization();

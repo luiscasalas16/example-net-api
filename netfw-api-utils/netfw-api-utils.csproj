@@ -58,7 +58,7 @@
     <Compile Include="Results\Result.cs" />
     <Compile Include="Results\ResultInvalid.cs" />
     <Compile Include="Results\ResultMessage.cs" />
-    <Compile Include="Results\ResultUnexpected.cs" />
+    <Compile Include="Results\ResultError.cs" />
     <Compile Include="Results\ResultValid.cs" />
   </ItemGroup>
   <ItemGroup>

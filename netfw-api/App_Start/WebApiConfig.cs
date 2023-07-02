@@ -47,7 +47,7 @@ namespace netfw_api
             // Register multipart/form-data formatter.
             config.Formatters.Add(new MultipartFormDataFormatter());
 
-            // Register default error handler.
+            // Implements default exception handler.
             config.Services.Replace(typeof(IExceptionHandler), new DefaultExceptionHandler());
         }
     }

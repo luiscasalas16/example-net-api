@@ -3,6 +3,8 @@ using System.Web.Http.ExceptionHandling;
 
 namespace netfw_api_utils.Errores
 {
+    // Implements default exception handler.
+
     public class DefaultExceptionHandler : ExceptionHandler
     {
         public override void Handle(ExceptionHandlerContext context)
@@ -19,7 +21,7 @@ namespace netfw_api_utils.Errores
             }
             else
             {
-                context.Result = new ResultUnexpected(context.Request, "Ha ocurrido un error inesperado.", context.Exception.Message);
+                context.Result = new ResultError(context.Request, "Ha ocurrido un error inesperado.", context.Exception.Message);
             }
         }
     }

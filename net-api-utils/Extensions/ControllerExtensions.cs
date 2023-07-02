@@ -28,7 +28,7 @@ namespace net_api_utils.Extensions
 
         public static Result ResultUnexpected(this ControllerBase controller, string error)
         {
-            return new ResultUnexpected(error);
+            return new ResultError(error);
         }
 
         public static bool Validate<T>(this ControllerBase controller, T model, out Result resultinvalid)

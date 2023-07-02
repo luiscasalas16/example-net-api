@@ -5,6 +5,8 @@ using net_api_utils.Results;
 
 namespace net_api_utils.Errores
 {
+    // Implements default exception handler.
+
     [ApiController]
     public class DefaultExceptionController : ControllerBase
     {
@@ -25,7 +27,7 @@ namespace net_api_utils.Errores
             }
             else
             {
-                return new ResultUnexpected("Unexpected error.", context.Error.Message);
+                return new ResultError("Unexpected error.", context.Error.Message);
             }
         }
     }

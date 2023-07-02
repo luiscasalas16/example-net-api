@@ -25,7 +25,7 @@ namespace netfw_api_utils.Extensions
 
         public static Result ResultUnexpected(this ApiController controller, string error)
         {
-            return new ResultUnexpected(controller.Request, error);
+            return new ResultError(controller.Request, error);
         }
 
         public static bool Validate<T>(this ApiController controller, T model, out Result resultinvalid)
