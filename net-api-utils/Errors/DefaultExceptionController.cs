@@ -15,7 +15,7 @@ namespace net_api_utils.Errores
         {
             var context = HttpContext.Features.Get<IExceptionHandlerFeature>()!;
 
-            logger.LogError(context.Error, "Unexpected error.");
+            logger.LogError(context.Error, "internal api error");
 
             if (context.Error is ValidationException errorValidacion)
             {
@@ -23,11 +23,11 @@ namespace net_api_utils.Errores
             }
             else if (context.Error is ConfigurationException errorConfiguracion)
             {
-                return new ResultInvalid(errorConfiguracion.Message);
+                return new ResultError(errorConfiguracion.Message);
             }
             else
             {
-                return new ResultError("Unexpected error.", context.Error.Message);
+                return new ResultError("internal api error", context.Error.Message);
             }
         }
     }
