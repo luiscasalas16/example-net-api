@@ -1,5 +1,6 @@
 using net_api_utils.Results;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace net_api
 {
@@ -21,6 +22,7 @@ namespace net_api
                 .AddNewtonsoftJson(options =>
                 {
                     options.SerializerSettings.DateFormatString = "dd/MM/yyyy HH:mm:ss";
+                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                     options.SerializerSettings.Converters.Add(new StringEnumConverter());
                 });
 

@@ -2,6 +2,7 @@
 using netfw_api_utils.Errores;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Http;
@@ -19,6 +20,7 @@ namespace netfw_api
             var defaultSettings = new JsonSerializerSettings
             {
                 DateFormatString = "dd/MM/yyyy HH:mm:ss",
+                ContractResolver = new CamelCasePropertyNamesContractResolver(),
                 Converters = new List<JsonConverter>
                 {
                     new StringEnumConverter(),
