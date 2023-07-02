@@ -18,10 +18,10 @@ namespace net_api
                         return new ResultInvalid(context.ModelState);
                     };
                 })
-                //set newtonsoft as default serializer and set default settings
+                // Sets Newtonsoft as default serializer and sets the default serializer settings.
                 .AddNewtonsoftJson(options =>
                 {
-                    options.SerializerSettings.DateFormatString = "dd/MM/yyyy HH:mm:ss";
+                    //options.SerializerSettings.DateFormatString = "dd/MM/yyyy HH:mm:ss";
                     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                     options.SerializerSettings.Converters.Add(new StringEnumConverter());
                 });

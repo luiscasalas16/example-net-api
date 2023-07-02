@@ -15,25 +15,26 @@ namespace netfw_api
     {
         public static void Register(HttpConfiguration config)
         {
-            // set newtonsoft as default serializer and set default settings
+            // Sets Newtonsoft as default serializer and sets the default serializer settings.
 
             var defaultSettings = new JsonSerializerSettings
             {
-                DateFormatString = "dd/MM/yyyy HH:mm:ss",
+                //DateFormatString = "dd/MM/yyyy HH:mm:ss",
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                Converters = new List<JsonConverter>
-                {
-                    new StringEnumConverter(),
-                }
+                Converters = new List<JsonConverter> { new StringEnumConverter() }
             };
 
             JsonConvert.DefaultSettings = () => { return defaultSettings; };
 
             config.Formatters.JsonFormatter.SerializerSettings = defaultSettings;
 
+            // Register http attributes routes.
+
             config.MapHttpAttributeRoutes();
 
-            // Register routes.
+            // Register custom routes to enable:
+            // - the use of multiple methods with the same http verb.
+            // - the use of methods with the same http verb name.
 
             config.Routes.MapHttpRoute("ApiId", "{controller}/{id}", new { id = RouteParameter.Optional }, new { id = @"\d+" });
 
@@ -44,11 +45,11 @@ namespace netfw_api
             config.Routes.MapHttpRoute("ApiPut", "{controller}", new { action = "Put" }, new { httpMethod = new HttpMethodConstraint(HttpMethod.Put) });
             config.Routes.MapHttpRoute("ApiDelete", "{controller}", new { action = "Delete" }, new { httpMethod = new HttpMethodConstraint(HttpMethod.Delete) });
 
-            // Register multipart/form-data formatter.
-            config.Formatters.Add(new MultipartFormDataFormatter());
-
             // Implements default exception handler.
             config.Services.Replace(typeof(IExceptionHandler), new DefaultExceptionHandler());
+
+            // Register multipart/form-data formatter.
+            //config.Formatters.Add(new MultipartFormDataFormatter());
         }
     }
 }
