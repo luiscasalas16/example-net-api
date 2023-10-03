@@ -40,7 +40,7 @@ namespace netfw_api.Controllers
 
         private Result GetResult(string id)
         {
-            return this.ResultValid(new { OutputMessage = $"{id} - {DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fffff")}" });
+            return this.ResultValid(new { OutputMessage = $"{id} - {DateTime.UtcNow.AddHours(-6).ToString("yyyy-MM-dd_HH-mm-ss-fffff")}" });
         }
 
         [HttpPost]
@@ -79,7 +79,7 @@ namespace netfw_api.Controllers
 
             return this.ResultValid(new TestDtoResult()
             {
-                OutputMessage = $"{parameters.InputMessage ?? ""} - {id} - {DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fffff")}"
+                OutputMessage = $"{parameters.InputMessage ?? ""} - {id} - {DateTime.UtcNow.AddHours(-6).ToString("yyyy-MM-dd_HH-mm-ss-fffff")}"
             });
         }
     }
